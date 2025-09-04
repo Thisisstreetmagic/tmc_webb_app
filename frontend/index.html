@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учет ТМЦ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Система учета ТМЦ</h1>
+        </header>
+
+        <nav>
+            <button onclick="showTab('writeoff')">Списание ТМЦ</button>
+            <button onclick="showTab('stats')">Статистика</button>
+            <button onclick="showTab('tmc')">Справочник ТМЦ</button>
+        </nav>
+
+        <div id="writeoff-tab" class="tab">
+            <h2>Списание ТМЦ</h2>
+            <form id="writeoff-form">
+                <select id="category-select" onchange="loadNames()">
+                    <option value="">Выберите категорию</option>
+                </select>
+                <select id="name-select">
+                    <option value="">Выберите наименование</option>
+                </select>
+                <input type="text" id="basis" placeholder="Основание списания">
+                <input type="number" id="quantity" placeholder="Количество" min="1">
+                <input type="date" id="writeoff-date">
+                <input type="text" id="destination" placeholder="Куда списано">
+                <button type="button" onclick="submitWriteoff()">Записать списание</button>
+                <div id="writeoff-message" class="message"></div>
+            </form>
+            
+            <div class="list-container">
+                <h3>История списаний</h3>
+                <div id="writeoffs-list" class="data-list">
+                    <p class="loading-text">Загрузка данных...</p>
+                </div>
+            </div>
+        </div>
+        <div id="tmc-tab" class="tab hidden">
+            <h2>Справочник ТМЦ</h2>
+            <form id="tmc-form">
+                <input type="text" id="tmc-category" placeholder="Категория" required>
+                <input type="text" id="tmc-name" placeholder="Наименование" required>
+                <input type="date" id="tmc-date" required>
+                <input type="number" id="tmc-amount" placeholder="Сумма" step="0.01" required>
+                <input type="number" id="tmc-price" placeholder="Цена" step="0.01" required>
+                <input type="number" id="tmc-quantity" placeholder="Количество" min="1" required>
+                <button type="button" onclick="addTMCItem()">Добавить ТМЦ</button>
+                <div id="tmc-message" class="message"></div>
+            </form>
+            
+            <div class="list-container">
+                <h3>Список всех ТМЦ</h3>
+                <div id="tmc-list" class="data-list">
+                    <p class="loading-text">Загрузка данных...</p>
+                </div>
+            </div>
+        </div>
+            </form>
+        </div>
+
+        <div class="export-section">
+            <button onclick="exportToExcel()">Экспорт в Excel</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
